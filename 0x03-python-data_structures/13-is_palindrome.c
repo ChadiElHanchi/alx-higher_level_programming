@@ -1,54 +1,32 @@
 #include "lists.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
-*add_nodeint - adds a new node at the beginning of a listint_t list
-*@head: head of listint_t
-*@n: int to add in listint_t list
-*Return: address of the new element, or NULL if it failed
-*/
-listint_t *add_nodeint(listint_t **head, const int n)
-{
-	listint_t *new;
-
-	new = malloc(sizeof(listint_t));
-	if (new == NULL)
-		return (NULL);
-	new->n = n;
-	new->next = *head;
-	*head = new;
-	return (new);
-}
-/**
-*is_palindrome - identify if a syngle linked list is palindrome
-*@head: head of listint_t
-*Return: 1 if it is palindrome else 0
-*/
+ * is_palindrome - checks if a singly linked list is a palindrome
+ * @head: double pointer to the head of the list
+ * Return: 0 if it is not a palindrome, 1 if it is a palindrome
+ */
 int is_palindrome(listint_t **head)
 {
-	listint_t *head2 = *head;
-	listint_t *aux = NULL, *aux2 = NULL;
+	listint_t *current = *head;
+	int array[2048], i = 0, j;
 
-	if (*head == NULL || head2->next == NULL)
+	if (*head == NULL)
 		return (1);
-	while (head2 != NULL)
+
+	while (current != NULL)
 	{
-		add_nodeint(&aux, head2->n);
-		head2 = head2->next;
+		array[i] = current->n;
+		current = current->next;
+		i++;
 	}
-	aux2 = aux;
-	while (*head != NULL)
+
+	for (j = 0; j < i / 2; j++)
 	{
-		if ((*head)->n != aux2->n)
-		{
-			free_listint(aux);
+		if (array[j] != array[i - j - 1])
 			return (0);
-		}
-		*head = (*head)->next;
-		aux2 = aux2->next;
 	}
-	free_listint(aux);
+
 	return (1);
 }
-
