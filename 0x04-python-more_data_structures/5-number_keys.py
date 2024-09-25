@@ -1,4 +1,5 @@
 #!/usr/bin/python3
-def number_keys(my_dict):
-    return len(my_dict.keys())
 
+def number_keys(a_dictionary):
+    # use the len function to get the number of keys in the dictionary
+    return len(a_dictionary)
